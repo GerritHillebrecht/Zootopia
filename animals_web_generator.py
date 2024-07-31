@@ -1,46 +1,55 @@
-import json
-
-JSON_FILE_NAME = "animals_data.json"
-
-
-def load_data(file_path):
-    """ Loads a JSON file """
-    with open(file_path, "r") as handle:
-        return json.load(handle)
+from webbrowser import open as open_browser
+from functools import reduce
+from config import JSON_IMPORT_FILE, HTML_TEMPLATE, HTML_OUTPUT_FILE, DEFAULT_OUTPUT_KEYS
+from utils import load_data, save_data
 
 
-def print_animals(
-        animals: list[dict],
-        specific_keys=("name", "characteristics:diet", "locations", "characteristics:type")
-):
+def get_animal_data(
+        animal: dict,
+        output_keys: tuple[str, ...]
+) -> str:
     """
-    Prints the specified data for animals in given list.
-    :param animals: List of animals to print.
-    :param specific_keys: The data to print of each animal. Use ":" for nested data.
-    :type specific_keys: tuple[str]
-    :returns: Prints the animals, no output.
+    Creates a string of animal data, including all the selected data.
+    :param animal: The animal data dictionary.
+    :param output_keys: The selected data, defaults to name, type, diet, locations.
+    :return: The requested values a single string.
     """
-    for animal in animals:
-        for keys in specific_keys:
-            value = animal
-            for key in keys.split(":"):
-                value = value.get(key)
-            if value:
-                animal_key = keys.split(":")[-1].capitalize()
-                animal_value = value if type(value) is str else value[0]
-                # Would be better to just join the list, but the assignment requires the
-                # first element.
-                # animal_value = value if type(value) is str else ", ".join(value)
-                print(f"{animal_key}: {animal_value}")
-        print("")
+    return "".join(
+        # Output in "key: value" manner
+        f"{key}: {value if type(value) is str else ", ".join(value)}\n"
+        for key, value in filter(
+            # Check if key has value
+            lambda zipped: zipped[1],
+
+            # Zip the correct key with its value
+            zip(
+                map(lambda key_string: key_string.split(":")[-1].capitalize(), output_keys),
+                map(lambda key_string: reduce(
+                    lambda dictionary, key: dictionary.get(key),
+                    key_string.split(":"),
+                    animal
+                ), output_keys)
+            )
+        )
+    )
+
+
+def get_animals_template_data(animals: list[dict]) -> str:
+    return "\n".join(map(lambda animal: get_animal_data(animal, DEFAULT_OUTPUT_KEYS), animals))
 
 
 def main():
     """
-    Load the animals-data from the json-file and prints it.
+    Loads the animals-data from the json-file as well as the html-data from the template.
+    Replaces the template with generated data from the animals-data and saves it to animals.html.
     """
-    animals_data = load_data(JSON_FILE_NAME)
-    print_animals(animals_data)
+    animals = load_data(JSON_IMPORT_FILE)
+    template = load_data(HTML_TEMPLATE, "html").replace(
+        "__REPLACE_ANIMALS_INFO__",
+        get_animals_template_data(animals)
+    )
+    save_data(template, HTML_OUTPUT_FILE, file_type="html")
+    open_browser(HTML_OUTPUT_FILE)
 
 
 if __name__ == "__main__":
