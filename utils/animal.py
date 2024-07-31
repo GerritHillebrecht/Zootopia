@@ -1,5 +1,5 @@
 from functools import reduce
-from ..config import DEFAULT_OUTPUT_KEYS
+from config import DEFAULT_OUTPUT_KEYS
 
 
 def get_animal_data(
@@ -14,7 +14,7 @@ def get_animal_data(
     """
     return "".join(
         # Output in "key: value" manner
-        f"{key}: {value if type(value) is str else ", ".join(value)}\n"
+        f'<span style="display: block">{key}: {value if type(value) is str else ", ".join(value)}</span>'
         for key, value in filter(
             # Check if key has value
             lambda zipped: zipped[1],
