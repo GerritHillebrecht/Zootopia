@@ -47,9 +47,16 @@ def get_animal_data(
             classnames="card__title"
         ),
         "".join(dict_type_to_rendered_strings["subline"]),
+
+        # We are seriously putting <ul> elements in <p> Elements now.
+        # No idea who thought this was a good idea.
         create_html_element(
             "p",
-            "".join(dict_type_to_rendered_strings["description"]),
+            create_html_element(
+                "ul",
+                "".join(dict_type_to_rendered_strings["description"]),
+            ),
+
             classnames="card__text"
         )
     ])
@@ -118,4 +125,4 @@ def render_output_line(key, value, data):
 
     key = create_html_element(data["elem_type"], key)
     content = combine_list(value)
-    return f'{key}: {content}<br />'
+    return create_html_element("li", f'{key}: {content}')
