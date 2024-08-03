@@ -12,6 +12,12 @@ DEFAULT_OUTPUT_KEYS: tuple = (
         "type": "headline"
     },
     {
+        "field": "characteristics:slogan",
+        "display": "val",
+        "elem_type": "p",
+        "type": "subline"
+    },
+    {
         "field": "characteristics:diet",
         "display": "key:value",
         "elem_type": "strong",

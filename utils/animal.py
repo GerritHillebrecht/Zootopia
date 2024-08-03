@@ -46,6 +46,7 @@ def get_animal_data(
             "".join(dict_type_to_rendered_strings["headline"]),
             classnames="card__title"
         ),
+        "".join(dict_type_to_rendered_strings["subline"]),
         create_html_element(
             "p",
             "".join(dict_type_to_rendered_strings["description"]),
@@ -111,6 +112,9 @@ def render_output_line(key, value, data):
     """
     if data["type"] == "headline":
         return value
+
+    if data["type"] == "subline":
+        return create_html_element(data["elem_type"], value)
 
     key = create_html_element(data["elem_type"], key)
     content = combine_list(value)
