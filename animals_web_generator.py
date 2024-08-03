@@ -1,13 +1,22 @@
 from webbrowser import open as open_browser
 from config import JSON_IMPORT_FILE, HTML_TEMPLATE, HTML_OUTPUT_FILE
-from utils import load_data, save_data, get_animal_data, create_li_item
+from utils import load_data, save_data, get_animal_data, create_html_element
 
 
 def get_animals_template_data(animals: list[dict]) -> str:
+    """
+    Creates a html-list-item for each animal-list-item
+    :param animals: list of animals
+    :return: String of HTML-Elements (li-items).
+    """
     return "\n".join(map(
-        lambda animal: create_li_item(get_animal_data(animal)),
-        animals)
-    )
+        lambda animal: create_html_element(
+            "li",
+            get_animal_data(animal),
+            classnames="cards__item"
+        ),
+        animals
+    ))
 
 
 def main():
