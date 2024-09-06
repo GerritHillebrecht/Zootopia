@@ -6,7 +6,7 @@ headers = {
 }
 
 
-def fetch_animal(animal: str) -> list:
+def fetch_animals(animal: str) -> list:
     response = requests.get(
         f"{API_BASE_URL}?name={animal}",
         headers=headers

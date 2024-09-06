@@ -1,6 +1,7 @@
 from webbrowser import open as open_browser
 import config
 import utils
+import data_fetcher
 
 
 def main():
@@ -13,7 +14,7 @@ def main():
     animal = utils.prompt_for_animal()
 
     # Fetch animals from API, based on user selection
-    animals = utils.fetch_animal(
+    animals = data_fetcher.fetch_data(
         # API handles case-sensitivity, no need to make it lower-case.
         animal
     )
