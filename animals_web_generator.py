@@ -8,10 +8,14 @@ def main():
     Loads the animals-data from the api-ninjas API as well as the html-data from the template.
     Replaces the template with generated data from the animals-data and saves it to animals.html.
     """
+
+    # Prompt user for animal
+    animal = utils.prompt_for_animal()
+
     # Fetch animals from API, based on user selection
     animals = utils.fetch_animal(
         # API handles case-sensitivity, no need to make it lower-case.
-        utils.prompt_for_animal()
+        animal
     )
 
     # Removed the prompt for skin-typs for now, maybe it's still needed later on
@@ -28,7 +32,11 @@ def main():
     # Create output template with selected animals
     template = utils.load_data(config.HTML_TEMPLATE, "html").replace(
         "__REPLACE_ANIMALS_INFO__",
-        utils.get_animals_template(animals)
+        utils.get_animals_template(animals) if len(animals) > 0 else utils.create_html_element(
+            "h2",
+            f'Sadly, the animal <strong>"{animal}"</strong> doesn\'t exist (anymore).',
+            classnames="error-message"
+        )
     )
 
     # Save template to file
