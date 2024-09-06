@@ -1,4 +1,5 @@
 from functools import reduce
+import utils
 
 
 def create_html_element(
@@ -29,3 +30,19 @@ def create_html_element(
     tag_closing = f'</{html_element_type}>'
 
     return f"{tag_opening}{content}{tag_closing}"
+
+
+def get_animals_template(animals: list[dict]) -> str:
+    """
+    Creates a html-list-item for each animal-list-item
+    :param animals: list of animals
+    :return: String of HTML-Elements (li-items).
+    """
+    return "\n".join(map(
+        lambda animal: create_html_element(
+            "li",
+            utils.get_animal_data(animal),
+            classnames="cards__item"
+        ),
+        animals
+    ))

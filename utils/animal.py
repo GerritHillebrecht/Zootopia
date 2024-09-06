@@ -64,7 +64,7 @@ def get_animal_data(
 
 def match_key_val(input_dictionary, key_strings) -> tuple[tuple[str, str]]:
     """
-    Extracts the nested key and matches it the according value.
+    Extracts the nested key and matches it with the according value.
     :param input_dictionary: The Data to extract from, in this case the individual animal.
     :param key_strings: The nested key string, e.g. "characteristics:type".
     :return: A tuple of tuples, with the formatted and matched keys and values.
