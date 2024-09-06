@@ -49,6 +49,11 @@ def get_animals_template(animals: list[dict]) -> str:
 
 
 def create_error_message(search_string):
+    """
+    Creates an error message for non-existent user-searches.
+    :param search_string: The string the user tried to look up.
+    :return: h2 html-element as str.
+    """
     return create_html_element(
         "h2",
         f'Sadly, the animal <strong>"{search_string}"</strong> doesn\'t exist (anymore).',

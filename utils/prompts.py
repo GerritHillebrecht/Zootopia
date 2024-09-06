@@ -1,4 +1,8 @@
 def prompt_for_animal():
+    """
+    Prompts the user for the animal to be searched for.
+    :return: The search string as str.
+    """
     return input("Enter a name of an animal: ")
 
 
