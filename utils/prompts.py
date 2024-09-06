@@ -1,3 +1,7 @@
+def prompt_for_animal():
+    return input("Enter a name of an animal: ")
+
+
 def prompt_for_skin_type(animals: list[dict]) -> str:
     """
     Prompts the user to choose a skin-type.
