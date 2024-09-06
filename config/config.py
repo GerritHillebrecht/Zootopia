@@ -1,11 +1,3 @@
-# File import paths
-JSON_IMPORT_FILE = "animals_data.json"
-HTML_TEMPLATE = "animals_template.html"
-HTML_OUTPUT_FILE = "animals.html"
-
-API_BASE_URL = "https://api.api-ninjas.com/v1/animals"
-API_KEY = "J9tzb9de054RHAsEALQ7ng==tq2GXQNZGQw5Okfg"
-
 # Animal output data
 DEFAULT_OUTPUT_KEYS: tuple = (
     {

@@ -46,3 +46,11 @@ def get_animals_template(animals: list[dict]) -> str:
         ),
         animals
     ))
+
+
+def create_error_message(search_string):
+    return create_html_element(
+        "h2",
+        f'Sadly, the animal <strong>"{search_string}"</strong> doesn\'t exist (anymore).',
+        classnames="error-message"
+    )
